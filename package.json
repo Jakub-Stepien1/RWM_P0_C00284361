@@ -22,5 +22,9 @@
 		"typescript": "^5.0.0",
 		"vite": "^7.0.4",
 		"vitest": "^3.2.4"
-	}
+	},
+	"dependencies": {
+    	"peer-filter-c00285802": "github:Josh-Alsybury/-RWM_P0_C00285802#v0.1.1"
+  	}
+
 }
