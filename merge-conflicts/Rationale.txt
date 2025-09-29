@@ -1,0 +1,3 @@
+- From branch A I took the 'Submit' string, the extra prop and the styles.
+- From branch B I took the EventDispatcher, it's related function, the button linking to the function and the styles
+- I merged the two together to have everything necessary without any of the extra/duplicate parts from the base
