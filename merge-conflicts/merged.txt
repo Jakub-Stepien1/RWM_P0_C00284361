@@ -1,0 +1,8 @@
+Apple
+<<<<<<< a.txt
+Grape
+Orange
+=======
+Banana
+Pineapple
+>>>>>>> b.txt
