@@ -1,8 +1,17 @@
 <script lang="ts">
-  export let label: string = 'Click me';
+    import { createEventDispatcher } from 'svelte';
+    export let label: string = 'Click me';
+    export let disabled: boolean = false;
+
+    const dispatch = createEventDispatcher<{ pressed: {at: number}}>();
+
+    function handleClick() {
+        if (disabled) return;
+        dispatch('pressed', {at: Date.now()});
+    }
 </script>
 
-<button class="btn" on:click={() => console.log('clicked')}>
+<button class="btn" on:click={handleClick}>
     {label}
 </button>
 
@@ -12,6 +21,12 @@
         background: #eeeeee;
         color: #222222;
         border-radius: 0.375rem;
+        opacity: var(--opacity, 1);
+    }
+
+    .btn:disabled { 
+        --opcacity: 0.6; 
+        cursor: not-allowed;
     }
 
 </style>
