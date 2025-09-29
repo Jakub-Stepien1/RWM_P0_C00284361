@@ -30,6 +30,8 @@
 <h2>Output</h2>
 <p>{output2.join(' ')}</p>
 
+<a href="/combined">Combined Filter</a>
+
 <style>
     label { display: block; margin: 1rem 0;}
     input { width: 100%; max-width: 30rem;}
