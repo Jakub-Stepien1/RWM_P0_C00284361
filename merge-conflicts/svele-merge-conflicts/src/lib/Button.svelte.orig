@@ -1,7 +1,12 @@
 <script lang="ts">
+<<<<<<< HEAD
+  export let label: string = 'Submit';
+  export let variant: 'primary' | 'secondary' = 'primary';
+||||||| e15018b
+  export let label: string = 'Click me';
+=======
     import { createEventDispatcher } from 'svelte';
-    export let label: string = 'Submit';
-    export let variant: 'primary' | 'secondary' = 'primary';
+    export let label: string = 'Click me';
     export let disabled: boolean = false;
 
     const dispatch = createEventDispatcher<{ pressed: {at: number}}>();
@@ -10,9 +15,16 @@
         if (disabled) return;
         dispatch('pressed', {at: Date.now()});
     }
+>>>>>>> branch_b
 </script>
 
-<button class="btn" data-variant={variant} {disabled} on:click={handleClick}>
+<<<<<<< HEAD
+<button class="btn" data-variant={variant} on:click={() => console.log('clicked')}>
+||||||| e15018b
+<button class="btn" on:click={() => console.log('clicked')}>
+=======
+<button class="btn" on:click={handleClick}>
+>>>>>>> branch_b
     {label}
 </button>
 
