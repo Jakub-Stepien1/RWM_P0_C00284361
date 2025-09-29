@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-const mod = await import(pathToFileURL('./src/lib/combined/combined.ts').href);
+const mod = await import(pathToFileURL('./src/lib/filters/combined/combined.ts').href);
 const { combinedFilter } = mod;
 
 const inputs = {
