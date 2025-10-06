@@ -7,24 +7,28 @@ test('Checklist page shows Progress Checklist title', async ({ page }) => {
 });
 
 test('Checklist page shows done count when toggled', async ({ page }) => {
-    await page.goto('http://localhost:5173/lab/checklist');
-    const counter = page.locator('p');
-    const checkboxes = page.locator('input[type="checkbox"]');
-    const total = await checkboxes.count();
+  await page.goto('http://localhost:5173/lab/checklist');
 
-    await expect(counter).toContainText(`0/${total} done`);
+  const counter = page.locator('p');
+  const checkboxes = page.locator('input[type="checkbox"]');
+  const submitButton = page.locator('button');
 
-    // check all boxes one by one
-    for (let i = 0; i < total; i++) {
-        const box = checkboxes.nth(i);
-        await box.check();
-        await expect(counter).toContainText(`${i + 1}/${total} done`);
-    }
+  await expect(counter).toContainText('0/5 (0%)');
 
-    // uncheck all boxes one by one
-    for (let i = total - 1; i >= 0; i--) {
-        const box = checkboxes.nth(i);
-        await box.uncheck();
-        await expect(counter).toContainText(`${i}/${total} done`);
-    }
+  await checkboxes.nth(0).check();
+  await checkboxes.nth(1).check();
+
+  await expect(counter).toContainText('0/5 (0%)');
+
+  await submitButton.click();
+
+  await expect(counter).toContainText('2/5 (40%)');
+
+  await checkboxes.nth(2).check();
+
+  await expect(counter).toContainText('2/5 (40%)');
+
+  await submitButton.click();
+
+  await expect(counter).toContainText('3/5 (60%)');
 });

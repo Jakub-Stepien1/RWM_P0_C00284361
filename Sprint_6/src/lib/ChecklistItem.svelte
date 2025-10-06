@@ -1,18 +1,18 @@
-<script>
-    import { createEventDispatcher } from "svelte";
-    export let id;
-    export let label;
-    export let done = false;
+<script lang="ts">
+  import { createEventDispatcher } from "svelte";
 
-    const dispatch = createEventDispatcher();
+  export let id: number;
+  export let label;
+  export let done = false;
 
-    function toggle() 
-    {
-        dispatch('change', { id, done });
-    }
+  const dispatch = createEventDispatcher();
+
+  function toggle() {
+    dispatch('change', { id, done });
+  }
 </script>
 
 <label>
-    <input type="checkbox" bind:checked={done} on:change={toggle} />
-    {label}
+  <input type="checkbox" bind:checked={done} on:change={toggle} />
+  {label}
 </label>
