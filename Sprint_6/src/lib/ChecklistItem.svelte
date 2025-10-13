@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { itemsStore } from "$lib/stores/checklist";
+  import type { Item } from "$lib/stores/checklist";
 
   export let id: number;
-  export let label;
-  export let done = false;
+  export let label: string;
+  export let done: boolean;
 
-  const dispatch = createEventDispatcher();
-
-  function toggle() {
-    dispatch('change', { id, done });
+  function toggle(event: Event) {
+    const target = event.target as HTMLInputElement;
+    itemsStore.update(items =>
+      items.map(item =>
+        item.id === id ? { ...item, done: target.checked } : item
+      )
+    );
   }
 </script>
 

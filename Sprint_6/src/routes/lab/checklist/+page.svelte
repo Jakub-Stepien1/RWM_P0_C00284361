@@ -1,40 +1,26 @@
-<script lang="ts ">
+<script lang="ts">
   import ChecklistItem from "$lib/ChecklistItem.svelte";
+  import { itemsStore, completedStore, percentStore } from "$lib/stores/checklist";
+  import { get } from "svelte/store";
 
-  let items = [
-    { id: 1, label: "Item 1", done: false },
-    { id: 2, label: "Item 2", done: false },
-    { id: 3, label: "Item 3", done: false },
-    { id: 4, label: "Item 4", done: false },
-    { id: 5, label: "Item 5", done: false }
-  ];
-
-  let liveStates = items.map(i => ({ ...i }));
+  // Submitted (visible) state snapshot
   let submittedCount = 0;
+  let submittedPercent = 0;
 
-  $: total = items.length;
-  $: percentage = Math.round((submittedCount / total) * 100);
-
-  function handleChange(event) {
-    const { id, done } = event.detail;
-    const index = liveStates.findIndex(i => i.id === id);
-    if (index !== -1) {
-      liveStates[index] = { ...liveStates[index], done };
-      liveStates = [...liveStates]; // trigger reactivity
-    }
-  }
-
+  // Trigger submit: copy current derived store values into submitted vars
   function submitProgress() {
-    submittedCount = liveStates.filter(i => i.done).length;
+    submittedCount = get(completedStore);
+    submittedPercent = get(percentStore);
   }
 </script>
 
 <h1 data-testid="title">Progress Checklist</h1>
 
-{#each liveStates as item (item.id)}
-  <ChecklistItem {...item} on:change={handleChange} />
+<!-- Live checklist (reactive store data) -->
+{#each $itemsStore as item (item.id)}
+  <ChecklistItem {...item} />
 {/each}
 
 <button on:click={submitProgress}>Submit Progress</button>
 
-<p>{submittedCount}/{total} ({percentage}%)</p>
+<p>{submittedCount}/{$itemsStore.length} ({submittedPercent}%)</p>
